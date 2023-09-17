@@ -9,11 +9,11 @@ import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
 
+
 @RestController
 @RequestMapping("student")
 @Tag(name = "API для работы со студентами")
 public class StudentController {
-
     private final StudentService studentService;
 
     public StudentController(StudentService studentService) {
@@ -22,42 +22,42 @@ public class StudentController {
 
     @GetMapping("{id}")
     @Operation(summary = "Получение студента по id")
-    public ResponseEntity<Student> get(@PathVariable Long id) {
+    public ResponseEntity<Student> getInfoStudent(@PathVariable Long id) {
         Student student = studentService.get(id);
         return ResponseEntity.ok(student);
     }
 
-    @PostMapping()
+    @PostMapping
     @Operation(summary = "Создание студента")
-    public ResponseEntity<Student> create(@RequestBody Student studentR) {
+    public ResponseEntity<Student> createStudent(@RequestBody Student studentR) {
         Student student = studentService.add(studentR);
         return ResponseEntity.ok(student);
     }
 
-    @PutMapping()
+    @PutMapping
     @Operation(summary = "Обновление студента")
-    public ResponseEntity<Student> update(@RequestBody Student studentR) {
+    public ResponseEntity<Student> updateStudent(@RequestBody Student studentR) {
         Student student = studentService.update(studentR);
         return ResponseEntity.ok(student);
     }
 
     @DeleteMapping("{id}")
     @Operation(summary = "Удаление студента")
-    public ResponseEntity<Student> remove(@PathVariable Long id) {
-        Student student = studentService.remove(id);
-        return ResponseEntity.ok(student);
+    public ResponseEntity<Student> removeStudent(@PathVariable Long id) {
+        studentService.remove(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("all")
     @Operation(summary = "Получение всех студентов")
-    public ResponseEntity<Collection<Student>> getAll() {
+    public ResponseEntity<Collection<Student>> getAllStudent() {
         Collection<Student> students = studentService.getAll();
         return ResponseEntity.ok(students);
     }
 
-    @GetMapping()
+    @GetMapping("age")
     @Operation(summary = "Студенты одного возраста")
-    public ResponseEntity<Collection<Student>> getByAge(@RequestBody Integer age) {
+    public ResponseEntity<Collection<Student>> getByAgeStudent(@RequestParam Integer age) {
         Collection<Student> students = studentService.getByAge(age);
         return ResponseEntity.ok(students);
     }

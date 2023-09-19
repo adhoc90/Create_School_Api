@@ -2,14 +2,15 @@ package ru.hogwarts.school.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import ru.hogwarts.school.exception.EntityNotFoundException;
+import ru.hogwarts.school.exception.IncorrectArgumentException;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repositories.FacultyRepository;
 import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
@@ -55,9 +56,11 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public Collection<Faculty> getByColor(String color) {
-        return getAll().stream()
-                .filter(c -> c.getColor().equals(color))
-                .collect(Collectors.toList());
+    public Collection<Faculty> getByColorOrName(String color, String name) {
+
+        if (!StringUtils.hasText(color) || !StringUtils.hasText(name)) {
+            throw new IncorrectArgumentException("Требуется указать цвет или наименование факультета");
+        }
+        return facultyRepository.findFacultiesByColorIgnoreCaseOrNameIgnoreCase(color, name);
     }
 }

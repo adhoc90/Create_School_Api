@@ -3,13 +3,13 @@ package ru.hogwarts.school.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.EntityNotFoundException;
+import ru.hogwarts.school.exception.IncorrectArgumentException;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -55,9 +55,16 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Collection<Student> getByAge(Integer age) {
-        return getAll().stream()
-                .filter(student -> student.getAge().equals(age))
-                .collect(Collectors.toList());
+    public Collection<Student> getByAgeBetween(Integer startAge, Integer endAge) {
+        checkAge(startAge);
+        checkAge(endAge);
+
+        return studentRepository.findByAgeBetween(startAge, endAge);
+    }
+
+    private void checkAge(Integer age) {
+        if (age == null || age <= 10 || age >= 50) {
+            throw new IncorrectArgumentException("Требуется указать корректный возраст студента");
+        }
     }
 }

@@ -5,9 +5,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("faculty")
@@ -55,9 +57,17 @@ public class FacultyController {
     }
 
     @GetMapping("color")
-    @Operation(summary = "Факультеты одного цвета")
-    public ResponseEntity<Collection<Faculty>> getByColorFaculty(@RequestParam String color) {
-        Collection<Faculty> faculties = facultyService.getByColor(color);
+    @Operation(summary = "Получение факультетов по цвету или имени")
+    public ResponseEntity<Collection<Faculty>> getByColorOrName(@RequestParam(required = false) String color,
+                                                                @RequestParam(required = false) String name) {
+        Collection<Faculty> faculties = facultyService.getByColorOrName(color, name);
         return ResponseEntity.ok(faculties);
+    }
+
+    @GetMapping("students/{facultyId}")
+    @Operation(summary = "Получение студентов факультета")
+    public ResponseEntity<Collection<Student>> getStudents(@PathVariable Long facultyId) {
+        List<Student> students = facultyService.get(facultyId).getStudents();
+        return ResponseEntity.ok(students);
     }
 }

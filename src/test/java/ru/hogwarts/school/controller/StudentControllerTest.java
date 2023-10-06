@@ -10,8 +10,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
 import ru.hogwarts.school.service.impl.StudentServiceImpl;
@@ -20,7 +20,6 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.hogwarts.school.controller.TestConstants.*;
@@ -59,7 +58,6 @@ class StudentControllerTest {
                 .andExpect(jsonPath("$.name").value(MOCK_STUDENT_NAME))
                 .andExpect(jsonPath("$.age").value(MOCK_STUDENT_AGE));
     }
-
 
     @Test
     public void getInfoStudentTest() throws Exception {
@@ -114,7 +112,7 @@ class StudentControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect((ResultMatcher) content().json(mapper.writeValueAsString(MOCK_STUDENTS)));
+                .andExpect(MockMvcResultMatchers.content().json(mapper.writeValueAsString(MOCK_STUDENTS)));
     }
 
     @Test
@@ -123,10 +121,10 @@ class StudentControllerTest {
                 .thenReturn(MOCK_STUDENTS);
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/student/find?age=" + MOCK_STUDENT_AGE + "&age=" + MOCK_STUDENT_AGE_TWO)
+                        .get("/student/find?startAge=" + MOCK_STUDENT_AGE + "&endAge=" + MOCK_STUDENT_AGE_TWO)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect((ResultMatcher) content().json(mapper.writeValueAsString(MOCK_STUDENTS)));
+                .andExpect(MockMvcResultMatchers.content().json(mapper.writeValueAsString(MOCK_STUDENTS)));
     }
 }

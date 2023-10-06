@@ -40,6 +40,7 @@ class FacultyControllerTest {
 
     @Test
     public void createFacultyTest() throws Exception {
+        MOCK_FACULTY.setName(MOCK_FACULTY_NAME);
         when(facultyRepository.save(any(Faculty.class))).thenReturn(MOCK_FACULTY);
 
         JSONObject createFacultyRq = new JSONObject();

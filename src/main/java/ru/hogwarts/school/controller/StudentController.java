@@ -58,7 +58,7 @@ public class StudentController {
 
     @GetMapping("find")
     @Operation(summary = "Студенты одного возраста")
-    public ResponseEntity<Collection<Student>> getByAgeBetweenStudent(@RequestParam Integer startAge,
+    public ResponseEntity<Collection<Student>> getByAgeBetweenStudent(@RequestParam() Integer startAge,
                                                                       @RequestParam Integer endAge) {
         Collection<Student> students = studentService.getByAgeBetween(startAge, endAge);
         return ResponseEntity.ok(students);

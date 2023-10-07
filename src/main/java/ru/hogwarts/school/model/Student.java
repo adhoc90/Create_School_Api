@@ -16,7 +16,6 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "faculty_id")
     @JsonBackReference
-    @JsonIgnore
     private Faculty faculty;
 
     public Student(Long id, String name, Integer age) {
@@ -71,5 +70,15 @@ public class Student {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, age);
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", faculty=" + faculty +
+                '}';
     }
 }

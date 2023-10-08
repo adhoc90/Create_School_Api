@@ -18,7 +18,6 @@ public class TestConstants {
             MOCK_FACULTY_COLOR
     );
 
-    public static final String OTHER_FACULTY_NAME = "Other faculty name";
     public static final List<Faculty> MOCK_FACULTIES = Collections.singletonList(MOCK_FACULTY);
 
 
@@ -27,15 +26,10 @@ public class TestConstants {
     public static final Integer MOCK_STUDENT_AGE = 20;
     public static final Integer MOCK_STUDENT_AGE_TWO = 25;
 
-    public static final String OTHER_STUDENT_NAME = "Other student name";
 
     public static final Student MOCK_STUDENT = new Student(
             MOCK_STUDENT_ID,
             MOCK_STUDENT_NAME,
             MOCK_STUDENT_AGE
     );
-
-    public static final List<Student> MOCK_STUDENTS = Collections.singletonList(MOCK_STUDENT);
-
-
 }

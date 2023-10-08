@@ -10,10 +10,10 @@ import org.springframework.http.ResponseEntity;
 import ru.hogwarts.school.model.Faculty;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static ru.hogwarts.school.controller.TestConstants.*;
+import static ru.hogwarts.school.controller.TestConstantsRest.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class FacultyControllerTest {
+class FacultyControllerRestTest {
 
     @Autowired
     private TestRestTemplate testRestTemplate;

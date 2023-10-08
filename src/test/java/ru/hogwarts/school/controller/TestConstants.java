@@ -26,7 +26,6 @@ public class TestConstants {
     public static final Integer MOCK_STUDENT_AGE = 20;
     public static final Integer MOCK_STUDENT_AGE_TWO = 25;
 
-    public static final Integer OTHER_STUDENT_AGE = 25;
     public static final Student MOCK_STUDENT = new Student(
             MOCK_STUDENT_ID,
             MOCK_STUDENT_NAME,

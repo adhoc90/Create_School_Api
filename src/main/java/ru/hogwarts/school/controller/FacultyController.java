@@ -21,17 +21,17 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
-    @GetMapping("{id}")
-    @Operation(summary = "Получение факультета по id")
-    public ResponseEntity<Faculty> getInfoFaculty(@PathVariable Long id) {
-        Faculty faculty = facultyService.get(id);
-        return ResponseEntity.ok(faculty);
-    }
-
     @PostMapping()
     @Operation(summary = "Создание факультета")
     public ResponseEntity<Faculty> createFaculty(@RequestBody Faculty facultyR) {
         Faculty faculty = facultyService.add(facultyR);
+        return ResponseEntity.ok(faculty);
+    }
+
+    @GetMapping("{id}")
+    @Operation(summary = "Получение факультета по id")
+    public ResponseEntity<Faculty> getInfoFaculty(@PathVariable Long id) {
+        Faculty faculty = facultyService.get(id);
         return ResponseEntity.ok(faculty);
     }
 
@@ -56,7 +56,7 @@ public class FacultyController {
         return ResponseEntity.ok(faculties);
     }
 
-    @GetMapping("color")
+    @GetMapping("find")
     @Operation(summary = "Получение факультетов по цвету или имени")
     public ResponseEntity<Collection<Faculty>> getByColorOrName(@RequestParam(required = false) String color,
                                                                 @RequestParam(required = false) String name) {

@@ -21,17 +21,17 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping("{id}")
-    @Operation(summary = "Получение студента по id")
-    public ResponseEntity<Student> getInfoStudent(@PathVariable Long id) {
-        Student student = studentService.get(id);
-        return ResponseEntity.ok(student);
-    }
-
     @PostMapping
     @Operation(summary = "Создание студента")
     public ResponseEntity<Student> createStudent(@RequestBody Student studentR) {
         Student student = studentService.add(studentR);
+        return ResponseEntity.ok(student);
+    }
+
+    @GetMapping("{id}")
+    @Operation(summary = "Получение студента по id")
+    public ResponseEntity<Student> getInfoStudent(@PathVariable Long id) {
+        Student student = studentService.get(id);
         return ResponseEntity.ok(student);
     }
 
@@ -56,9 +56,9 @@ public class StudentController {
         return ResponseEntity.ok(students);
     }
 
-    @GetMapping("age")
+    @GetMapping("find")
     @Operation(summary = "Студенты одного возраста")
-    public ResponseEntity<Collection<Student>> getByAgeBetweenStudent(@RequestParam Integer startAge,
+    public ResponseEntity<Collection<Student>> getByAgeBetweenStudent(@RequestParam() Integer startAge,
                                                                       @RequestParam Integer endAge) {
         Collection<Student> students = studentService.getByAgeBetween(startAge, endAge);
         return ResponseEntity.ok(students);

@@ -21,7 +21,6 @@ public class TestConstantsWebMvc {
     public static final String OTHER_FACULTY_NAME = "Other faculty name";
     public static final List<Faculty> MOCK_FACULTIES = Collections.singletonList(MOCK_FACULTY);
 
-
     public static final Long MOCK_STUDENT_ID = 1L;
     public static final String MOCK_STUDENT_NAME = "Student name";
     public static final Integer MOCK_STUDENT_AGE = 20;

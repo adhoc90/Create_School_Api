@@ -58,7 +58,7 @@ public class StudentController {
 
     @GetMapping("find")
     @Operation(summary = "Студенты одного возраста")
-    public ResponseEntity<Collection<Student>> getByAgeBetweenStudent(@RequestParam() Integer startAge,
+    public ResponseEntity<Collection<Student>> getByAgeBetweenStudent(@RequestParam Integer startAge,
                                                                       @RequestParam Integer endAge) {
         Collection<Student> students = studentService.getByAgeBetween(startAge, endAge);
         return ResponseEntity.ok(students);
@@ -69,5 +69,24 @@ public class StudentController {
     public ResponseEntity<Faculty> getFaculty(@PathVariable Long studentId) {
         Faculty faculty = studentService.get(studentId).getFaculty();
         return ResponseEntity.ok(faculty);
+    }
+
+    @GetMapping("count")
+    @Operation(summary = "Получить количество студентов в школе")
+    public ResponseEntity<Integer> getCount() {
+        Integer studentServiceCount = studentService.getCount();
+        return ResponseEntity.ok(studentServiceCount);
+    }
+
+    @GetMapping("age/average")
+    @Operation(summary = "Получить средний возраст студентов в школе")
+    public ResponseEntity<Float> getAverageAge() {
+        return ResponseEntity.ok(studentService.getAverageAge());
+    }
+
+    @GetMapping("last-five")
+    @Operation(summary = "Получить только пять последних студентов")
+    public ResponseEntity<Collection<Student>> getFiveStudents() {
+        return ResponseEntity.ok(studentService.getLastFiveStudents());
     }
 }

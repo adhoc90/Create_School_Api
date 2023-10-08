@@ -20,10 +20,10 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static ru.hogwarts.school.controller.TestConstants.*;
+import static ru.hogwarts.school.controller.TestConstantsWebMvc.*;
 
 @WebMvcTest(controllers = FacultyController.class)
-class FacultyControllerTest {
+class FacultyControllerWebMvcTest {
     @Autowired
     private MockMvc mockMvc;
 

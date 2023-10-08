@@ -6,7 +6,7 @@ import ru.hogwarts.school.model.Student;
 import java.util.Collections;
 import java.util.List;
 
-public class TestConstants {
+public class TestConstantsWebMvc {
 
     public static final Long MOCK_FACULTY_ID = 1L;
     public static final String MOCK_FACULTY_NAME = "Faculty name";
@@ -34,4 +34,5 @@ public class TestConstants {
             MOCK_STUDENT_NAME,
             MOCK_STUDENT_AGE
     );
+    public static final List<Student> MOCK_STUDENTS = Collections.singletonList(MOCK_STUDENT);
 }

@@ -35,4 +35,3 @@ public class TestConstantsRest {
     );
     public static final List<Student> MOCK_STUDENTS = Collections.singletonList(MOCK_STUDENT);
 }
-

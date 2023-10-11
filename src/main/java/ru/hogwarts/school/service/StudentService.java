@@ -17,4 +17,10 @@ public interface StudentService {
     Collection<Student> getAll();
 
     Collection<Student> getByAgeBetween(Integer startAge, Integer endAge);
+
+    Integer getCount();
+
+    Float getAverageAge();
+
+    Collection<Student> getLastFiveStudents();
 }

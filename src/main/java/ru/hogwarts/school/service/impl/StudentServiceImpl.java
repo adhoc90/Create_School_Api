@@ -62,6 +62,21 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findByAgeBetween(startAge, endAge);
     }
 
+    @Override
+    public Integer getCount() {
+        return studentRepository.getCount();
+    }
+
+    @Override
+    public Float getAverageAge() {
+        return studentRepository.getAverageAge();
+    }
+
+    @Override
+    public Collection<Student> getLastFiveStudents() {
+        return studentRepository.getLastFiveStudents();
+    }
+
     private void checkAge(Integer age) {
         if (age == null || age <= 10 || age >= 50) {
             throw new IncorrectArgumentException("Требуется указать корректный возраст студента");

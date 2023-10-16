@@ -1,5 +1,7 @@
 package ru.hogwarts.school.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.EntityNotFoundException;
@@ -14,6 +16,7 @@ import java.util.Optional;
 @Service
 public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
+    private final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
 
     @Autowired
     public StudentServiceImpl(StudentRepository studentRepository) {
@@ -22,28 +25,33 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student add(Student student) {
+        logger.info("Was invoked method for add student");
         return studentRepository.save(student);
     }
 
     @Override
     public Student get(Long id) {
+        logger.info("Was invoked method for get student");
         Optional<Student> students = studentRepository.findById(id);
 
         if (students.isPresent()) {
             return students.get();
 
         } else {
+            logger.error("Student not found");
             throw new EntityNotFoundException();
         }
     }
 
     @Override
     public Student update(Student student) {
+        logger.info("Was invoked method for update student");
         return studentRepository.save(student);
     }
 
     @Override
     public Student remove(Long id) {
+        logger.info("Was invoked method for remove student");
         Student student = get(id);
         studentRepository.deleteById(id);
         return student;
@@ -51,11 +59,13 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Collection<Student> getAll() {
+        logger.info("Was invoked method for get all students");
         return studentRepository.findAll();
     }
 
     @Override
     public Collection<Student> getByAgeBetween(Integer startAge, Integer endAge) {
+        logger.info("Was invoked method for get by between age students");
         checkAge(startAge);
         checkAge(endAge);
 
@@ -64,21 +74,26 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Integer getCount() {
+        logger.info("Was invoked method for get count students");
         return studentRepository.getCount();
     }
 
     @Override
     public Float getAverageAge() {
+        logger.info("Was invoked method for get average age students");
         return studentRepository.getAverageAge();
     }
 
     @Override
     public Collection<Student> getLastFiveStudents() {
+        logger.info("Was invoked method for get last five students");
         return studentRepository.getLastFiveStudents();
     }
 
     private void checkAge(Integer age) {
+        logger.info("Was invoked method check age students");
         if (age == null || age <= 10 || age >= 50) {
+            logger.error("Incorrect student age: {}", age);
             throw new IncorrectArgumentException("Требуется указать корректный возраст студента");
         }
     }

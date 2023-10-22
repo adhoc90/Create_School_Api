@@ -67,8 +67,7 @@ public class StudentController {
     @GetMapping("faculty/{studentId}")
     @Operation(summary = "Получение факультета студентов")
     public ResponseEntity<Faculty> getFaculty(@PathVariable Long studentId) {
-        Faculty faculty = studentService.get(studentId).getFaculty();
-        return ResponseEntity.ok(faculty);
+        return ResponseEntity.ok(studentService.get(studentId).getFaculty());
     }
 
     @GetMapping("count")
@@ -88,5 +87,17 @@ public class StudentController {
     @Operation(summary = "Получить только пять последних студентов")
     public ResponseEntity<Collection<Student>> getFiveStudents() {
         return ResponseEntity.ok(studentService.getLastFiveStudents());
+    }
+
+    @GetMapping("age/average-by-stream")
+    @Operation(summary = "Получить средний возраст всех студентов через Stream Api")
+    public ResponseEntity <Double> getAverageAgeAllStudents() {
+        return ResponseEntity.ok(studentService.getAverageAgeAllStudents());
+    }
+
+    @GetMapping("/names-starts-with-A")
+    @Operation(summary = "Получение студентов, чьё именя начинается c букву \"А\"")
+    public ResponseEntity<Collection<String>> getStudentsNamesStartsWithA() {
+    return ResponseEntity.ok(studentService.getStudentsNamesStartsWithA());
     }
 }

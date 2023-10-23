@@ -12,6 +12,7 @@ import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -88,6 +89,26 @@ public class StudentServiceImpl implements StudentService {
     public Collection<Student> getLastFiveStudents() {
         logger.info("Was invoked method for get last five students");
         return studentRepository.getLastFiveStudents();
+    }
+
+    @Override
+    public Collection<String> getStudentsNamesStartsWithA() {
+        logger.info("Was invoked method for get names of students starts with \"A\"");
+        return studentRepository.findAll().stream()
+                .map(Student::getName)
+                .filter(s->s.startsWith("A"))
+                .sorted()
+                .map(String::toUpperCase)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Double getAverageAgeAllStudents() {
+        logger.info("Was invoked method for get average age all students");
+        return studentRepository.findAll().stream()
+                .mapToDouble(Student::getAge)
+                .average()
+                .orElse(0.0f);
     }
 
     private void checkAge(Integer age) {

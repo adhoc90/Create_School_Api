@@ -12,6 +12,7 @@ import ru.hogwarts.school.repositories.FacultyRepository;
 import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Optional;
 
 @Service
@@ -72,5 +73,14 @@ public class FacultyServiceImpl implements FacultyService {
             throw new IncorrectArgumentException("Требуется указать цвет или наименование факультета");
         }
         return facultyRepository.findFacultiesByColorIgnoreCaseOrNameIgnoreCase(color, name);
+    }
+
+    @Override
+    public String getLongNameFaculty() {
+        logger.info("Was invoked method for long name faculties");
+        return facultyRepository.findAll().stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparingInt(String::length))
+                .orElse("");
     }
 }

@@ -1,8 +1,10 @@
 package ru.hogwarts.school.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.hogwarts.school.service.InfoService;
 
@@ -20,5 +22,10 @@ public class InfoController {
     @GetMapping("/getPort")
     public String getPort() {
         return infoService.getPort();
+    }
+    @GetMapping("/calculate-stream")
+    public ResponseEntity<Void> calculateStream(@RequestParam Integer limit) {
+        infoService.getCalculateWithStream(limit);
+        return ResponseEntity.ok().build();
     }
 }

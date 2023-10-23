@@ -70,4 +70,10 @@ public class FacultyController {
         List<Student> students = facultyService.get(facultyId).getStudents();
         return ResponseEntity.ok(students);
     }
+
+    @GetMapping("/long-faculty-name")
+    @Operation(summary = "Получение самого длинного названия факультета")
+    public ResponseEntity<String> getLongNameFaculty() {
+        return ResponseEntity.ok(facultyService.getLongNameFaculty());
+    }
 }

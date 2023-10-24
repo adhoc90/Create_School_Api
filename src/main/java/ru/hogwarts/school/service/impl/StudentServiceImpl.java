@@ -11,6 +11,7 @@ import ru.hogwarts.school.repositories.StudentRepository;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -96,7 +97,7 @@ public class StudentServiceImpl implements StudentService {
         logger.info("Was invoked method for get names of students starts with \"A\"");
         return studentRepository.findAll().stream()
                 .map(Student::getName)
-                .filter(s->s.startsWith("A"))
+                .filter(s -> s.startsWith("A"))
                 .sorted()
                 .map(String::toUpperCase)
                 .collect(Collectors.toList());
@@ -109,6 +110,52 @@ public class StudentServiceImpl implements StudentService {
                 .mapToDouble(Student::getAge)
                 .average()
                 .orElse(0.0f);
+    }
+
+    @Override
+    public void printStudents() {
+        logger.info("Was invoked method for print students");
+        List<Student> student = studentRepository.findAll();
+
+        if (student.size() >= 6) {
+            student.subList(0, 2).forEach(this::printStudentName);
+
+            printStudents(student.subList(2, 4));
+            printStudents(student.subList(4, 6));
+        }
+    }
+
+    @Override
+    public void printStudentsSync() {
+        logger.info("Was invoked method for print students sync");
+        List<Student> student = studentRepository.findAll();
+
+        if (student.size() >= 6) {
+            student.subList(0, 2).forEach(this::printStudentNameSync);
+
+            printStudentsSync(student.subList(2, 4));
+            printStudentsSync(student.subList(4, 6));
+        }
+    }
+
+    private void printStudents(List<Student> students) {
+        new Thread(() -> {
+            students.forEach(this::printStudentName);
+        }).start();
+    }
+
+    private void printStudentName(Student student) {
+        logger.info("Student, id: {}, name: {}", student.getId(), student.getName());
+    }
+
+    private void printStudentsSync(List<Student> students) {
+        new Thread(() -> {
+            students.forEach(this::printStudentNameSync);
+        }).start();
+    }
+
+    private synchronized void printStudentNameSync(Student student) {
+        logger.info("Student, id: {}, name: {}", student.getId(), student.getName());
     }
 
     private void checkAge(Integer age) {

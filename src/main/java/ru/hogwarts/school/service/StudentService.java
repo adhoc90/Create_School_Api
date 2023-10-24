@@ -27,4 +27,8 @@ public interface StudentService {
     Collection<String> getStudentsNamesStartsWithA();
 
     Double getAverageAgeAllStudents();
+
+    void printStudents();
+
+    void printStudentsSync();
 }

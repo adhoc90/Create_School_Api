@@ -100,4 +100,18 @@ public class StudentController {
     public ResponseEntity<Collection<String>> getStudentsNamesStartsWithA() {
     return ResponseEntity.ok(studentService.getStudentsNamesStartsWithA());
     }
+
+    @GetMapping("/print-student-names")
+    @Operation(summary = "Вывод имён студентов в консоль")
+    public ResponseEntity<Void> printStudents() {
+        studentService.printStudents();
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/print-students-names-sync")
+    @Operation(summary = "Вывод имён студентов в синхронном потоке")
+    public ResponseEntity<Void> printStudentsSync() {
+        studentService.printStudentsSync();
+        return ResponseEntity.ok().build();
+    }
 }
